@@ -4,12 +4,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
+import com.example.calculadora.interfaces.InterfacesMainActivity;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, InterfacesMainActivity.View {
     String num1Vista, num2Vista, resultadoVista, operacion;
+    Button button0, button1, button2, button3, button4, button5, button6, button7, button8, button9;
+    Boolean canDigitSecondNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +22,56 @@ public class MainActivity extends AppCompatActivity {
         this.num2Vista = "";
         this.operacion = "Operación";
         this.resultadoVista = "Resultado";
+    }
+
+    @Override
+    public void onClick(View view) {
+
+    }
+
+    @Override
+    public void findElement() {
+        button0 = findViewById(R.id.btn0);
+        //button0.setOnClickListener(this);
+
+        button1 = findViewById(R.id.btn1);
+        button1.setOnClickListener(this);
+
+        button2 = findViewById(R.id.btn2);
+        button2.setOnClickListener(this);
+
+        button3 = findViewById(R.id.btn3);
+        button3.setOnClickListener(this);
+
+        button4 = findViewById(R.id.btn4);
+        button4.setOnClickListener(this);
+
+        button5 = findViewById(R.id.btn5);
+        button5.setOnClickListener(this);
+
+        button6 = findViewById(R.id.btn6);
+        button6.setOnClickListener(this);
+
+        button7 = findViewById(R.id.btn7);
+        button7.setOnClickListener(this);
+
+        button8 = findViewById(R.id.btn8);
+        button8.setOnClickListener(this);
+
+        button9 = findViewById(R.id.btn9);
+        button9.setOnClickListener(this);
+
+        // Clase anonima ya que View.OnClickListener es una interface y se le da un cuerpo
+        button0.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (num1Vista.isEmpty() || canDigitSecondNumber)
+                    num1Vista += "0";
+                else
+                    num2Vista += "0";
+                actualizarVista();
+            }
+        });
     }
 
     public void presionadoAC(View vista) {
@@ -95,6 +148,7 @@ public class MainActivity extends AppCompatActivity {
                 this.resultadoVista = verificarOperacion(this.num1Vista, this.num2Vista, true);
             }
             actualizarVista();
+            canDigitSecondNumber = false;
         }
     }
 
@@ -194,6 +248,7 @@ public class MainActivity extends AppCompatActivity {
         if (!this.num1Vista.isEmpty()){
             this.operacion = "%";
             actualizarVista();
+            canDigitSecondNumber = true;
         }
     }
 
@@ -201,6 +256,7 @@ public class MainActivity extends AppCompatActivity {
         if (!this.num1Vista.isEmpty()){
             this.operacion = "/";
             actualizarVista();
+            canDigitSecondNumber = true;
         }
     }
 
@@ -208,6 +264,7 @@ public class MainActivity extends AppCompatActivity {
         if (!this.num1Vista.isEmpty()) {
             this.operacion = "*";
             actualizarVista();
+            canDigitSecondNumber = true;
         }
     }
 
@@ -215,13 +272,18 @@ public class MainActivity extends AppCompatActivity {
         if (!this.num1Vista.isEmpty()){
             this.operacion = "-";
             actualizarVista();
+            canDigitSecondNumber = true;
         }
     }
 
     public void presionadoSuma(View vista) {
         if (!this.num1Vista.isEmpty()) {
             this.operacion = "+";
+            canDigitSecondNumber = true;
             actualizarVista();
         }
     }
+
+
+
 }

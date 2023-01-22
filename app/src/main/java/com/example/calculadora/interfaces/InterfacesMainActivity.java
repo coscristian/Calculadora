@@ -1,6 +1,6 @@
 package com.example.calculadora.interfaces;
 
-public interface InteracesMainActivity {
+public interface InterfacesMainActivity {
     interface View {
         public void findElement();
     }
