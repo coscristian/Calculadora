@@ -22,6 +22,7 @@ public interface InterfacesMainActivity {
         public void pressedButton9();
         public void pressedButtonAC();
         public void pressedButtonEraseLastDigit();
+        public void pressedButtonResult();
         public void sendFirstNumber(String num1);
         public void sendSecondNumber(String num2);
         public void sendResult(String result);
@@ -43,10 +44,12 @@ public interface InterfacesMainActivity {
         public void initValues();
         public void removeNum1LastDigit();
         public void removeNum2LastDigit();
+        public void calculateResult(Boolean isInteger);
 
         public String getNum1();
         public String getNum2();
         public String getOperation();
+        public void canDigitSecondNumber(Boolean value);
         public void initOperation();
     }
 }

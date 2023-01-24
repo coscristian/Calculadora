@@ -4,6 +4,7 @@ import com.example.calculadora.interfaces.InterfacesMainActivity;
 
 public class ModelImpl implements InterfacesMainActivity.Model {
     String num1, num2, result, operation;
+    Boolean canDigitSecondNumber;
 
     InterfacesMainActivity.Presenter presenter;
 
@@ -118,6 +119,42 @@ public class ModelImpl implements InterfacesMainActivity.Model {
     }
 
     @Override
+    public void calculateResult(Boolean isInteger) {
+        if(isInteger) {
+            Integer intNum1 = Integer.parseInt(num1);
+            Integer intNum2 = Integer.parseInt(num2);
+            switch (operation) {
+                case "%":
+                    result = String.valueOf(intNum1 % intNum2); break;
+                case "/":
+                    result = String.valueOf(intNum1 / intNum2); break;
+                case "*":
+                    result = String.valueOf(intNum1 * intNum2); break;
+                case "-":
+                    result = String.valueOf(intNum1 - intNum2); break;
+                case "+":
+                    result = String.valueOf(intNum1 + intNum2); break;
+            }
+        }else {
+            Float floatNum1 = Float.parseFloat(num1);
+            Float floatNum2 = Float.parseFloat(num2);
+            switch (operation) {
+                case "%":
+                    result = String.valueOf(floatNum1 % floatNum2); break;
+                case "/":
+                    result = String.valueOf(floatNum1 / floatNum2); break;
+                case "*":
+                    result = String.valueOf(floatNum1 * floatNum2); break;
+                case "-":
+                    result = String.valueOf(floatNum1 - floatNum2); break;
+                case "+":
+                    result = String.valueOf(floatNum1 + floatNum2); break;
+            }
+        }
+        presenter.sendResult(result);
+    }
+
+    @Override
     public String getNum1() {
         return num1;
     }
@@ -130,6 +167,11 @@ public class ModelImpl implements InterfacesMainActivity.Model {
     @Override
     public String getOperation() {
         return operation;
+    }
+
+    @Override
+    public void canDigitSecondNumber(Boolean value) {
+        canDigitSecondNumber = value;
     }
 
     @Override

@@ -88,6 +88,18 @@ public class PresenterImpl implements InterfacesMainActivity.Presenter {
     }
 
     @Override
+    public void pressedButtonResult() {
+        String num1 = model.getNum1();
+        String num2 = model.getNum2();
+        String operation = model.getOperation();
+
+        if(!num1.isEmpty() && !num2.isEmpty() && !operation.contains("Operación")) {
+            model.calculateResult(!num1.contains(".") && !num2.contains("."));
+            model.canDigitSecondNumber(false);
+        }
+    }
+
+    @Override
     public void sendFirstNumber(String num1) {
         view.updateFirstNumber(num1);
     }

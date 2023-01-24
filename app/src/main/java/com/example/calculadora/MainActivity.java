@@ -12,7 +12,7 @@ import com.example.calculadora.presenter.PresenterImpl;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, InterfacesMainActivity.View {
     Button button0, button1, button2, button3, button4, button5, button6, button7, button8, button9,
-            buttonAC, buttonErase;
+            buttonAC, buttonErase, buttonResult;
     Boolean canDigitSecondNumber;
 
     TextView textViewNum1, textViewNum2, textViewResult, textViewOperation;
@@ -46,12 +46,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 presenter.pressedButton4();
                 break;
 
-
             case R.id.buttonAC:
                 presenter.pressedButtonAC();
                 break;
             case R.id.buttonErase:
                 presenter.pressedButtonEraseLastDigit();
+                break;
+            case R.id.buttonResult:
+                presenter.pressedButtonResult();
                 break;
         }
     }
@@ -94,6 +96,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         buttonErase = findViewById(R.id.buttonErase);
         buttonErase.setOnClickListener(this);
 
+        buttonResult = findViewById(R.id.buttonResult);
+        buttonResult.setOnClickListener(this);
+
         textViewNum1 = (TextView) findViewById(R.id.num1);
         textViewNum2 = (TextView) findViewById(R.id.num2);
         textViewResult = (TextView) findViewById(R.id.resultado);
@@ -131,53 +136,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void updateOperation(String operation) {
         textViewOperation.setText(operation);
     }
-/*
-    private String verificarOperacion(String num1Vista, String num2Vista,Boolean esEntero) {
-        if(esEntero) {
-            Integer num1 = Integer.parseInt(this.num1Vista);
-            Integer num2 = Integer.parseInt(this.num2Vista);
-            switch (this.operacion) {
-                case "%":
-                    this.resultadoVista = (num1 % num2) + ""; break;
-                case "/":
-                    this.resultadoVista = (num1 / num2) + ""; break;
-                case "*":
-                    this.resultadoVista = (num1 * num2) + ""; break;
-                case "-":
-                    this.resultadoVista = (num1 - num2) + ""; break;
-                case "+":
-                    this.resultadoVista = (num1 + num2) + ""; break;
-            }
-        }else {
-            Float num1 = Float.parseFloat(this.num1Vista);
-            Float num2 = Float.parseFloat(this.num2Vista);
-            switch (this.operacion) {
-                case "%":
-                    this.resultadoVista = (num1 % num2) + ""; break;
-                case "/":
-                    this.resultadoVista = (num1 / num2) + ""; break;
-                case "*":
-                    this.resultadoVista = (num1 * num2) + ""; break;
-                case "-":
-                    this.resultadoVista = (num1 - num2) + ""; break;
-                case "+":
-                    this.resultadoVista = (num1 + num2) + ""; break;
-            }
-        }
-        return this.resultadoVista;
-    }
-
-    public void calcularResultado(View vista) {
-        if(!this.num1Vista.isEmpty() && !this.num2Vista.isEmpty() && !this.operacion.contains("Operación")) {
-            if(this.num1Vista.contains(".") || this.num2Vista.contains(".")) {
-                this.resultadoVista = verificarOperacion(this.num1Vista, this.num2Vista, false);
-            }else{
-                this.resultadoVista = verificarOperacion(this.num1Vista, this.num2Vista, true);
-            }
-            updateView();
-            canDigitSecondNumber = false;
-        }
-    }
 
     public void presionadoPunto(View vista) {
         if(!this.num1Vista.isEmpty() && !this.num1Vista.contains(".")) {
@@ -190,8 +148,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             updateView();
         }
     }
-
-
 
     public void presionadoBoton0(View vista) {
         if (this.num1Vista.isEmpty() || this.operacion.contains("Operación"))
@@ -312,7 +268,4 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             updateView();
         }
     }
- */
-
-
 }
