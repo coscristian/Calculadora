@@ -12,9 +12,8 @@ import com.example.calculadora.presenter.PresenterImpl;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, InterfacesMainActivity.View {
     Button button0, button1, button2, button3, button4, button5, button6, button7, button8, button9,
-            buttonAC, buttonErase, buttonResult;
-    Boolean canDigitSecondNumber;
-
+            buttonAC, buttonErase, buttonResult, buttonDecimal, buttonRemainder, buttonDivision,
+            buttonMultiply, buttonSubstraction, buttonAddition;
     TextView textViewNum1, textViewNum2, textViewResult, textViewOperation;
     InterfacesMainActivity.Presenter presenter;
 
@@ -45,7 +44,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.btn4:
                 presenter.pressedButton4();
                 break;
-
+            case R.id.btn5:
+                presenter.pressedButton5();
+                break;
+            case R.id.btn6:
+                presenter.pressedButton6();
+                break;
+            case R.id.btn7:
+                presenter.pressedButton7();
+                break;
+            case R.id.btn8:
+                presenter.pressedButton8();
+                break;
+            case R.id.btn9:
+                presenter.pressedButton9();
+                break;
             case R.id.buttonAC:
                 presenter.pressedButtonAC();
                 break;
@@ -54,6 +67,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.buttonResult:
                 presenter.pressedButtonResult();
+                break;
+            case R.id.buttonDecimal:
+                presenter.pressedButtonDecimal();
+                break;
+            case R.id.buttonRemainder:
+                presenter.pressedButtonRemainder();
+                break;
+            case R.id.buttonDivision:
+                presenter.pressedButtonDivision();
+                break;
+            case R.id.buttonMultiply:
+                presenter.pressedButtonMultiply();
+                break;
+            case R.id.buttonSubstraction:
+                presenter.pressedButtonSubstraction();
+                break;
+            case R.id.buttonAddition:
+                presenter.pressedButtonAddition();
                 break;
         }
     }
@@ -99,10 +130,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         buttonResult = findViewById(R.id.buttonResult);
         buttonResult.setOnClickListener(this);
 
+        buttonDecimal = findViewById(R.id.buttonDecimal);
+        buttonDecimal.setOnClickListener(this);
+
+        buttonRemainder = findViewById(R.id.buttonRemainder);
+        buttonRemainder.setOnClickListener(this);
+
+        buttonDivision = findViewById(R.id.buttonDivision);
+        buttonDivision.setOnClickListener(this);
+
+        buttonMultiply = findViewById(R.id.buttonMultiply);
+        buttonMultiply.setOnClickListener(this);
+
+        buttonSubstraction = findViewById(R.id.buttonSubstraction);
+        buttonSubstraction.setOnClickListener(this);
+
+        buttonAddition = findViewById(R.id.buttonAddition);
+        buttonAddition.setOnClickListener(this);
+
         textViewNum1 = (TextView) findViewById(R.id.num1);
         textViewNum2 = (TextView) findViewById(R.id.num2);
         textViewResult = (TextView) findViewById(R.id.resultado);
         textViewOperation = (TextView) findViewById(R.id.operacion);
+
 /*
         Clase anonima ya que View.OnClickListener es una interface y se le da un cuerpo
         button0.setOnClickListener(new View.OnClickListener() {
@@ -135,137 +185,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void updateOperation(String operation) {
         textViewOperation.setText(operation);
-    }
-
-    public void presionadoPunto(View vista) {
-        if(!this.num1Vista.isEmpty() && !this.num1Vista.contains(".")) {
-            this.num1Vista += ".";
-            updateView();
-        }
-
-        if (!this.num2Vista.isEmpty() && !this.num2Vista.contains(".")) {
-            this.num2Vista += ".";
-            updateView();
-        }
-    }
-
-    public void presionadoBoton0(View vista) {
-        if (this.num1Vista.isEmpty() || this.operacion.contains("Operación"))
-            this.num1Vista += "0";
-        else
-            this.num2Vista += "0";
-        updateView();
-    }
-
-    public void presionadoBoton1(View vista) {
-        if (this.num1Vista.isEmpty() || this.operacion.contains("Operación"))
-            this.num1Vista += "1";
-        else
-            this.num2Vista += "1";
-        updateView();
-    }
-
-    public void presionadoBoton2(View vista) {
-        if (this.num1Vista.isEmpty() || this.operacion.contains("Operación"))
-            this.num1Vista += "2";
-        else
-            this.num2Vista += "2";
-        updateView();
-    }
-
-    public void presionadoBoton3(View vista) {
-        if (this.num1Vista.isEmpty() || this.operacion.contains("Operación"))
-            this.num1Vista += "3";
-        else
-            this.num2Vista += "3";
-        updateView();
-    }
-
-    public void presionadoBoton4(View vista) {
-        if (this.num1Vista.isEmpty() || this.operacion.contains("Operación"))
-            this.num1Vista += "4";
-        else
-            this.num2Vista += "4";
-        updateView();
-    }
-
-    public void presionadoBoton5(View vista) {
-        if (this.num1Vista.isEmpty() || this.operacion.contains("Operación"))
-            this.num1Vista += "5";
-        else
-            this.num2Vista += "5";
-        updateView();
-    }
-
-    public void presionadoBoton6(View vista) {
-        if (this.num1Vista.isEmpty() || this.operacion.contains("Operación"))
-            this.num1Vista += "6";
-        else
-            this.num2Vista += "6";
-        updateView();
-    }
-
-    public void presionadoBoton7(View vista) {
-        if (this.num1Vista.isEmpty() || this.operacion.contains("Operación"))
-            this.num1Vista += "7";
-        else
-            this.num2Vista += "7";
-        updateView();
-    }
-
-    public void presionadoBoton8(View vista) {
-        if (this.num1Vista.isEmpty() || this.operacion.contains("Operación"))
-            this.num1Vista += "8";
-        else
-            this.num2Vista += "8";
-        updateView();
-    }
-
-    public void presionadoBoton9(View vista) {
-        if (this.num1Vista.isEmpty() || this.operacion.contains("Operación"))
-            this.num1Vista += "9";
-        else
-            this.num2Vista += "9";
-        updateView();
-    }
-
-    public void presionadoModulo(View vista) {
-        if (!this.num1Vista.isEmpty()){
-            this.operacion = "%";
-            updateView();
-            canDigitSecondNumber = true;
-        }
-    }
-
-    public void presionadoDiv(View vista) {
-        if (!this.num1Vista.isEmpty()){
-            this.operacion = "/";
-            updateView();
-            canDigitSecondNumber = true;
-        }
-    }
-
-    public void presionadoMult(View vista) {
-        if (!this.num1Vista.isEmpty()) {
-            this.operacion = "*";
-            updateView();
-            canDigitSecondNumber = true;
-        }
-    }
-
-    public void presionadoResta(View vista) {
-        if (!this.num1Vista.isEmpty()){
-            this.operacion = "-";
-            updateView();
-            canDigitSecondNumber = true;
-        }
-    }
-
-    public void presionadoSuma(View vista) {
-        if (!this.num1Vista.isEmpty()) {
-            this.operacion = "+";
-            canDigitSecondNumber = true;
-            updateView();
-        }
     }
 }

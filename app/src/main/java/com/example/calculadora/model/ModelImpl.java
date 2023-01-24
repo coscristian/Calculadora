@@ -119,6 +119,16 @@ public class ModelImpl implements InterfacesMainActivity.Model {
     }
 
     @Override
+    public void addDecimalFirstNumber() {
+        presenter.sendFirstNumber(num1 += ".");
+    }
+
+    @Override
+    public void addDecimalSecondNumber() {
+        presenter.sendSecondNumber(num2 += ".");
+    }
+
+    @Override
     public void calculateResult(Boolean isInteger) {
         if(isInteger) {
             Integer intNum1 = Integer.parseInt(num1);
@@ -170,13 +180,43 @@ public class ModelImpl implements InterfacesMainActivity.Model {
     }
 
     @Override
-    public void canDigitSecondNumber(Boolean value) {
-        canDigitSecondNumber = value;
+    public void allowInputSecondNumber() {
+        canDigitSecondNumber = true;
+    }
+
+    @Override
+    public void avoidInputSecondNumber() {
+        canDigitSecondNumber = false;
     }
 
     @Override
     public void initOperation() {
         operation = "Operación";
         presenter.sendOperation(operation);
+    }
+
+    @Override
+    public void setRemainderOperation() {
+        presenter.sendOperation(operation = "%");
+    }
+
+    @Override
+    public void setAdditionOperation() {
+        presenter.sendOperation(operation = "+");
+    }
+
+    @Override
+    public void setSubstractionOperation() {
+        presenter.sendOperation(operation = "-");
+    }
+
+    @Override
+    public void setMultiplyOperation() {
+        presenter.sendOperation(operation = "*");
+    }
+
+    @Override
+    public void setDivisionOperation() {
+        presenter.sendOperation(operation = "/");
     }
 }

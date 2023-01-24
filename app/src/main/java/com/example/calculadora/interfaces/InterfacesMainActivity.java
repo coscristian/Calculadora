@@ -23,6 +23,12 @@ public interface InterfacesMainActivity {
         public void pressedButtonAC();
         public void pressedButtonEraseLastDigit();
         public void pressedButtonResult();
+        public void pressedButtonDecimal();
+        public void pressedButtonRemainder();
+        public void pressedButtonDivision();
+        public void pressedButtonMultiply();
+        public void pressedButtonSubstraction();
+        public void pressedButtonAddition();
         public void sendFirstNumber(String num1);
         public void sendSecondNumber(String num2);
         public void sendResult(String result);
@@ -40,16 +46,22 @@ public interface InterfacesMainActivity {
         public void button7(Boolean firstNumber);
         public void button8(Boolean firstNumber);
         public void button9(Boolean firstNumber);
-
         public void initValues();
         public void removeNum1LastDigit();
         public void removeNum2LastDigit();
+        public void addDecimalFirstNumber();
+        public void addDecimalSecondNumber();
         public void calculateResult(Boolean isInteger);
-
         public String getNum1();
         public String getNum2();
         public String getOperation();
-        public void canDigitSecondNumber(Boolean value);
+        public void allowInputSecondNumber();
+        public void avoidInputSecondNumber();
         public void initOperation();
+        public void setRemainderOperation();
+        public void setAdditionOperation();
+        public void setSubstractionOperation();
+        public void setMultiplyOperation();
+        public void setDivisionOperation();
     }
 }

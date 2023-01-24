@@ -28,47 +28,71 @@ public class PresenterImpl implements InterfacesMainActivity.Presenter {
         if (model.getNum1().isEmpty() || model.getOperation().contains("Operación"))
             model.button1(FIRST_NUMBER);
         else
-            model.button0(false);
+            model.button1(false);
     }
 
     @Override
     public void pressedButton2() {
-
+        if (model.getNum1().isEmpty() || model.getOperation().contains("Operación"))
+            model.button2(FIRST_NUMBER);
+        else
+            model.button2(false);
     }
 
     @Override
     public void pressedButton3() {
-
+        if (model.getNum1().isEmpty() || model.getOperation().contains("Operación"))
+            model.button3(FIRST_NUMBER);
+        else
+            model.button3(false);
     }
 
     @Override
     public void pressedButton4() {
-
+        if (model.getNum1().isEmpty() || model.getOperation().contains("Operación"))
+            model.button4(FIRST_NUMBER);
+        else
+            model.button4(false);
     }
 
     @Override
     public void pressedButton5() {
-
+        if (model.getNum1().isEmpty() || model.getOperation().contains("Operación"))
+            model.button5(FIRST_NUMBER);
+        else
+            model.button5(false);
     }
 
     @Override
     public void pressedButton6() {
-
+        if (model.getNum1().isEmpty() || model.getOperation().contains("Operación"))
+            model.button6(FIRST_NUMBER);
+        else
+            model.button6(false);
     }
 
     @Override
     public void pressedButton7() {
-
+        if (model.getNum1().isEmpty() || model.getOperation().contains("Operación"))
+            model.button7(FIRST_NUMBER);
+        else
+            model.button7(false);
     }
 
     @Override
     public void pressedButton8() {
-
+        if (model.getNum1().isEmpty() || model.getOperation().contains("Operación"))
+            model.button8(FIRST_NUMBER);
+        else
+            model.button8(false);
     }
 
     @Override
     public void pressedButton9() {
-
+        if (model.getNum1().isEmpty() || model.getOperation().contains("Operación"))
+            model.button9(FIRST_NUMBER);
+        else
+            model.button9(false);
     }
 
     @Override
@@ -95,7 +119,61 @@ public class PresenterImpl implements InterfacesMainActivity.Presenter {
 
         if(!num1.isEmpty() && !num2.isEmpty() && !operation.contains("Operación")) {
             model.calculateResult(!num1.contains(".") && !num2.contains("."));
-            model.canDigitSecondNumber(false);
+            model.avoidInputSecondNumber();
+        }
+    }
+
+    @Override
+    public void pressedButtonDecimal() {
+        String num1 = model.getNum1();
+        String num2 = model.getNum2();
+
+        if(!num1.isEmpty() && !num1.contains(".")) {
+            model.addDecimalFirstNumber();
+        }
+
+        if (!num2.isEmpty() && !num2.contains(".")) {
+            model.addDecimalSecondNumber();
+        }
+    }
+
+    @Override
+    public void pressedButtonRemainder() {
+        if (!model.getNum1().isEmpty()){
+            model.setRemainderOperation();
+            model.allowInputSecondNumber();
+        }
+    }
+
+    @Override
+    public void pressedButtonDivision() {
+        if (!model.getNum1().isEmpty()){
+            model.setDivisionOperation();
+            model.allowInputSecondNumber();
+        }
+    }
+
+    @Override
+    public void pressedButtonMultiply() {
+        if (!model.getNum1().isEmpty()) {
+            model.setMultiplyOperation();
+            model.allowInputSecondNumber();
+        }
+    }
+
+    @Override
+    public void pressedButtonSubstraction() {
+        if (!model.getNum1().isEmpty()){
+            model.setSubstractionOperation();
+            model.allowInputSecondNumber();
+        }
+    }
+
+    @Override
+    public void pressedButtonAddition() {
+        if (!model.getNum1().isEmpty()) {
+            model.setAdditionOperation();
+            model.allowInputSecondNumber();
         }
     }
 
