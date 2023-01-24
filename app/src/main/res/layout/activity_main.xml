@@ -73,7 +73,7 @@
             android:layout_height="match_parent">
 
             <Button
-                android:id="@+id/button3"
+                android:id="@+id/buttonAC"
                 style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -85,7 +85,7 @@
                 android:textSize="24sp" />
 
             <Button
-                android:id="@+id/button4"
+                android:id="@+id/buttonErase"
                 style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

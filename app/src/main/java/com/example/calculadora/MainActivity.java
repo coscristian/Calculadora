@@ -8,31 +8,58 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.calculadora.interfaces.InterfacesMainActivity;
+import com.example.calculadora.presenter.PresenterImpl;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, InterfacesMainActivity.View {
-    String num1Vista, num2Vista, resultadoVista, operacion;
-    Button button0, button1, button2, button3, button4, button5, button6, button7, button8, button9;
+    Button button0, button1, button2, button3, button4, button5, button6, button7, button8, button9,
+            buttonAC, buttonErase;
     Boolean canDigitSecondNumber;
+
+    TextView textViewNum1, textViewNum2, textViewResult, textViewOperation;
+    InterfacesMainActivity.Presenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        this.num1Vista = "";
-        this.num2Vista = "";
-        this.operacion = "Operación";
-        this.resultadoVista = "Resultado";
+
+        this.findElement();
+        this.presenter = new PresenterImpl(this);
     }
 
     @Override
     public void onClick(View view) {
+        switch(view.getId()) {
+            case R.id.btn0:
+                presenter.pressedButton0();
+                break;
+            case R.id.btn1:
+                presenter.pressedButton1();
+                break;
+            case R.id.btn2:
+                presenter.pressedButton2();
+                break;
+            case R.id.btn3:
+                presenter.pressedButton3();
+                break;
+            case R.id.btn4:
+                presenter.pressedButton4();
+                break;
 
+
+            case R.id.buttonAC:
+                presenter.pressedButtonAC();
+                break;
+            case R.id.buttonErase:
+                presenter.pressedButtonEraseLastDigit();
+                break;
+        }
     }
 
     @Override
     public void findElement() {
         button0 = findViewById(R.id.btn0);
-        //button0.setOnClickListener(this);
+        button0.setOnClickListener(this);
 
         button1 = findViewById(R.id.btn1);
         button1.setOnClickListener(this);
@@ -61,7 +88,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         button9 = findViewById(R.id.btn9);
         button9.setOnClickListener(this);
 
-        // Clase anonima ya que View.OnClickListener es una interface y se le da un cuerpo
+        buttonAC = findViewById(R.id.buttonAC);
+        buttonAC.setOnClickListener(this);
+
+        buttonErase = findViewById(R.id.buttonErase);
+        buttonErase.setOnClickListener(this);
+
+        textViewNum1 = (TextView) findViewById(R.id.num1);
+        textViewNum2 = (TextView) findViewById(R.id.num2);
+        textViewResult = (TextView) findViewById(R.id.resultado);
+        textViewOperation = (TextView) findViewById(R.id.operacion);
+/*
+        Clase anonima ya que View.OnClickListener es una interface y se le da un cuerpo
         button0.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -69,42 +107,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     num1Vista += "0";
                 else
                     num2Vista += "0";
-                actualizarVista();
+                updateView();
             }
-        });
+        }); */
     }
 
-    public void presionadoAC(View vista) {
-        this.num1Vista = "";
-        this.num2Vista = "";
-        this.operacion = "Operación";
-        this.resultadoVista = "Resultado";
-        actualizarVista();
+    @Override
+    public void updateFirstNumber(String num1View) {
+        textViewNum1.setText(num1View);
     }
 
-    public void borrarDigito(View vista) {
-        if(!this.num2Vista.isEmpty())
-            this.num2Vista = this.num2Vista.substring(0, this.num2Vista.length() - 1);
-        else if(!this.num1Vista.isEmpty())
-            this.num1Vista = this.num1Vista.substring(0, this.num1Vista.length() - 1);
-
-        if(this.num2Vista.isEmpty())
-            this.operacion = "Operación";
-        actualizarVista();
+    @Override
+    public void updateSecondNumber(String num2View) {
+        textViewNum2.setText(num2View);
     }
 
-    private void actualizarVista() {
-        TextView textViewNum1 = (TextView) findViewById(R.id.num1);
-        TextView textViewNum2 = (TextView) findViewById(R.id.num2);
-        TextView textViewResultado = (TextView) findViewById(R.id.resultado);
-        TextView textViewOperacion = (TextView) findViewById(R.id.operacion);
-
-        textViewNum1.setText(this.num1Vista);
-        textViewNum2.setText(this.num2Vista);
-        textViewResultado.setText(this.resultadoVista);
-        textViewOperacion.setText(this.operacion);
+    @Override
+    public void updateResult(String resultView) {
+        textViewResult.setText(resultView);
     }
 
+    @Override
+    public void updateOperation(String operation) {
+        textViewOperation.setText(operation);
+    }
+/*
     private String verificarOperacion(String num1Vista, String num2Vista,Boolean esEntero) {
         if(esEntero) {
             Integer num1 = Integer.parseInt(this.num1Vista);
@@ -147,7 +174,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }else{
                 this.resultadoVista = verificarOperacion(this.num1Vista, this.num2Vista, true);
             }
-            actualizarVista();
+            updateView();
             canDigitSecondNumber = false;
         }
     }
@@ -155,21 +182,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void presionadoPunto(View vista) {
         if(!this.num1Vista.isEmpty() && !this.num1Vista.contains(".")) {
             this.num1Vista += ".";
-            actualizarVista();
+            updateView();
         }
 
         if (!this.num2Vista.isEmpty() && !this.num2Vista.contains(".")) {
             this.num2Vista += ".";
-            actualizarVista();
+            updateView();
         }
     }
+
+
 
     public void presionadoBoton0(View vista) {
         if (this.num1Vista.isEmpty() || this.operacion.contains("Operación"))
             this.num1Vista += "0";
         else
             this.num2Vista += "0";
-        actualizarVista();
+        updateView();
     }
 
     public void presionadoBoton1(View vista) {
@@ -177,7 +206,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             this.num1Vista += "1";
         else
             this.num2Vista += "1";
-        actualizarVista();
+        updateView();
     }
 
     public void presionadoBoton2(View vista) {
@@ -185,7 +214,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             this.num1Vista += "2";
         else
             this.num2Vista += "2";
-        actualizarVista();
+        updateView();
     }
 
     public void presionadoBoton3(View vista) {
@@ -193,7 +222,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             this.num1Vista += "3";
         else
             this.num2Vista += "3";
-        actualizarVista();
+        updateView();
     }
 
     public void presionadoBoton4(View vista) {
@@ -201,7 +230,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             this.num1Vista += "4";
         else
             this.num2Vista += "4";
-        actualizarVista();
+        updateView();
     }
 
     public void presionadoBoton5(View vista) {
@@ -209,7 +238,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             this.num1Vista += "5";
         else
             this.num2Vista += "5";
-        actualizarVista();
+        updateView();
     }
 
     public void presionadoBoton6(View vista) {
@@ -217,7 +246,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             this.num1Vista += "6";
         else
             this.num2Vista += "6";
-        actualizarVista();
+        updateView();
     }
 
     public void presionadoBoton7(View vista) {
@@ -225,7 +254,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             this.num1Vista += "7";
         else
             this.num2Vista += "7";
-        actualizarVista();
+        updateView();
     }
 
     public void presionadoBoton8(View vista) {
@@ -233,7 +262,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             this.num1Vista += "8";
         else
             this.num2Vista += "8";
-        actualizarVista();
+        updateView();
     }
 
     public void presionadoBoton9(View vista) {
@@ -241,13 +270,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             this.num1Vista += "9";
         else
             this.num2Vista += "9";
-        actualizarVista();
+        updateView();
     }
 
     public void presionadoModulo(View vista) {
         if (!this.num1Vista.isEmpty()){
             this.operacion = "%";
-            actualizarVista();
+            updateView();
             canDigitSecondNumber = true;
         }
     }
@@ -255,7 +284,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void presionadoDiv(View vista) {
         if (!this.num1Vista.isEmpty()){
             this.operacion = "/";
-            actualizarVista();
+            updateView();
             canDigitSecondNumber = true;
         }
     }
@@ -263,7 +292,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void presionadoMult(View vista) {
         if (!this.num1Vista.isEmpty()) {
             this.operacion = "*";
-            actualizarVista();
+            updateView();
             canDigitSecondNumber = true;
         }
     }
@@ -271,7 +300,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void presionadoResta(View vista) {
         if (!this.num1Vista.isEmpty()){
             this.operacion = "-";
-            actualizarVista();
+            updateView();
             canDigitSecondNumber = true;
         }
     }
@@ -280,10 +309,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (!this.num1Vista.isEmpty()) {
             this.operacion = "+";
             canDigitSecondNumber = true;
-            actualizarVista();
+            updateView();
         }
     }
-
+ */
 
 
 }
