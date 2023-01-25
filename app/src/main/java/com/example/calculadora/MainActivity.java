@@ -152,19 +152,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         textViewNum2 = (TextView) findViewById(R.id.num2);
         textViewResult = (TextView) findViewById(R.id.resultado);
         textViewOperation = (TextView) findViewById(R.id.operacion);
-
-/*
-        Clase anonima ya que View.OnClickListener es una interface y se le da un cuerpo
-        button0.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (num1Vista.isEmpty() || canDigitSecondNumber)
-                    num1Vista += "0";
-                else
-                    num2Vista += "0";
-                updateView();
-            }
-        }); */
     }
 
     @Override
